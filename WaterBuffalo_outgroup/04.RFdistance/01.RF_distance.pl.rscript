@@ -1,0 +1,14 @@
+
+library("phybase")
+ml=read.tree("01.RF_distance.pl.inputTre")
+nttree=read.tree(text="((((bison,wisent),yak),(cattle,indicus)),buffalo);")
+mttree=read.tree(text="((((cattle,indicus),wisent),(bison,yak)),buffalo);")
+dist=data.frame(nt=c(1:length(ml)),mt=c(1:length(ml)))
+for(i in 1:length(ml))
+{
+    dist$tree[i]=write.tree(ml[i])
+    dist$nt[i]=dist.topo(ml[i],nttree)
+    dist$mt[i]=dist.topo(ml[i],mttree)
+}
+write.table(dist,file="01.RF_distance.pl.dist",quote=F,row.names=F)
+  

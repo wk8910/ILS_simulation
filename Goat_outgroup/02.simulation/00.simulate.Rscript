@@ -1,0 +1,13 @@
+library(phybase)
+mptree1 = "(goat:11.202052,(buffalo:4.202052,((indicus:1.065052,cattle:1.065052):1.078040,(yak:1.882172,(bison:1,wisent:1):0.882172):0.260920):2.058960):7.000000);"
+
+spname <- species.name(mptree1)
+nodematrix <- read.tree.nodes(str=mptree1, name=spname)$nodes
+nodematrix[,5]<-2
+
+genetrees=1:200000
+for(i in 1:200000)
+genetrees[i]<-sim.coaltree.sp(rootnode=13, nodematrix=nodematrix,nspecies=7,seq=rep(1,7), name=spname)$gt
+
+write(genetrees,"wisent_simulated.tre")
+

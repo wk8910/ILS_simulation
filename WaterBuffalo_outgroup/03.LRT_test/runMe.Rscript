@@ -1,0 +1,8 @@
+prob=read.table("prob.txt",header=T)
+teststat = -2*(dmultinom(x=prob$observed*15836, prob=prob$mt, log = T) - dmultinom(x=prob$observed*15836, prob=prob$nuclear, log = T)) # the test statistic value of observed gene trees.
+
+nsim=1000
+x=rmultinom(n=nsim, size=15836, prob=prob$mt)
+test=1:nsim # The null distribution of the LRT test statistic for evaluating the fit of the mtDNA species tree to the empirical gene trees
+for(i in 1:nsim)
+test[i] = -2*(dmultinom(x=x[,i], prob=prob$mt, log = T) - dmultinom(x=x[,i], prob=prob$nuclear, log = T))
